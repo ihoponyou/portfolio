@@ -1,18 +1,17 @@
 import { Link } from "react-router-dom";
-import { images } from "../app/App";
+import PROJECTS from "../projects";
 
 interface GridCardProps {
   title: string;
+  linkTo: string;
   text?: string;
-  project_title: string;
 }
 
-function GridCard({ title }: GridCardProps) {
-  // const thumbnail = importAll(require.context(`../assets/pictures`, false, /\.(png|jpe?g|svg)$/));
+function GridCard(props: GridCardProps) {
   return (
     <div className="col">
       <div className="card">
-        <Link to="/rogue-lineage-tycoon">
+        <Link to={props.linkTo}>
           <img
             src={require("../assets/pictures/Screenshot 2023-06-03 110401.png")}
             className="card-img-top"
@@ -20,7 +19,7 @@ function GridCard({ title }: GridCardProps) {
           />
         </Link>
         <div className="card-body">
-          <h5 className="card-title">{title}</h5>
+          <h5 className="card-title">{props.title}</h5>
         </div>
       </div>
     </div>
@@ -28,29 +27,13 @@ function GridCard({ title }: GridCardProps) {
 }
 
 function Home() {
-  console.log(images.keys());
   return (
     <div className="row row-cols-2 row-cols-md-4 g-4">
-      <GridCard
-        title="rogue lineage tycoon"
-        project_title="rogue-lineage-tycoon"
-      />
-      <GridCard
-        title="rogue lineage tycoon"
-        project_title="rogue-lineage-tycoon"
-      />
-      <GridCard
-        title="rogue lineage tycoon"
-        project_title="rogue-lineage-tycoon"
-      />
-      <GridCard
-        title="rogue lineage tycoon"
-        project_title="rogue-lineage-tycoon"
-      />
-      <GridCard
-        title="rogue lineage tycoon"
-        project_title="rogue-lineage-tycoon"
-      />
+      {Array.from(PROJECTS.keys()).map((title) => <GridCard
+        key={title}
+        title={title}
+        linkTo={title.trim().replaceAll(/\s+/g, "-")}
+      />)}
     </div>
   );
 }
