@@ -25,15 +25,13 @@ function ProjectCard(props: Props) {
         <Card
             key={props.title}
         >
-            {/* <Link to={props.title.trim().replaceAll(/\s+/g, "-")}> */}
+            {/* TODO: scale gallery images properly; crop to fit? */}
             <Card.Img
-                height={280}
                 src={props.imagePaths[index]}
                 alt={`${props.title} thumbnail`}
                 onClick={incrementIndex}
                 onContextMenu={decrementIndex}
             />
-            {/* </Link> */}
             <Card.Body>
                 <Card.Title>{props.title}</Card.Title>
                 {props.text !== undefined && <Card.Text><Markdown>{props.text}</Markdown></Card.Text>}
