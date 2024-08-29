@@ -2,7 +2,6 @@ import Markdown from "react-markdown";
 import { Link } from "react-router-dom";
 import { ProjectData } from "../projects";
 import ImageGallery from "./ImageGallery";
-import Section from "./Section";
 
 interface Props {
     title: string,
@@ -12,7 +11,8 @@ interface Props {
 
 function ProjectPage(props: Props) {
     return (
-        <Section title={props.title}>
+        <div id={props.title} className="row">
+            <h1 className="mb-3">{props.title}</h1>
             <div className="row">
                 <div className="col-md-6">
                     <ImageGallery
@@ -31,7 +31,7 @@ function ProjectPage(props: Props) {
                 </div>
             </div>
             <Link to="/">Back</Link>
-        </Section>
+        </div>
     )
 }
 

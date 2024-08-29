@@ -1,26 +1,42 @@
+import { useState } from "react";
 import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import Markdown from "react-markdown";
 
 interface Props {
     title: string;
     linkTo: string;
+    imagePaths: string[];
     text?: string;
 }
 
 function ProjectCard(props: Props) {
+    const [index, setIndex] = useState(0);
+    console.log(props.imagePaths)
+    function incrementIndex() {
+        setIndex(index + 1 >= props.imagePaths.length ? 0 : index + 1);
+    }
+
+    function decrementIndex() {
+        setIndex(index - 1 <= -1 ? props.imagePaths.length - 1 : index - 1);
+    }
+
+
     return (
         <Card
             key={props.title}
         >
-            <Link to={props.title.trim().replaceAll(/\s+/g, "-")}>
-                <Card.Img
-                    src={require("../assets/pictures/rogue-lineage-tycoon/Screenshot 2023-06-10 113831.png")}
-                    alt={`${props.title} thumbnail`}
-                />
-            </Link>
+            {/* <Link to={props.title.trim().replaceAll(/\s+/g, "-")}> */}
+            <Card.Img
+                height={280}
+                src={props.imagePaths[index]}
+                alt={`${props.title} thumbnail`}
+                onClick={incrementIndex}
+                onContextMenu={decrementIndex}
+            />
+            {/* </Link> */}
             <Card.Body>
                 <Card.Title>{props.title}</Card.Title>
-                {props.text !== undefined && <Card.Text>{props.text}</Card.Text>}
+                {props.text !== undefined && <Card.Text><Markdown>{props.text}</Markdown></Card.Text>}
             </Card.Body>
         </Card>
     )
