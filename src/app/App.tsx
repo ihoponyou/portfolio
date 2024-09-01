@@ -4,8 +4,6 @@ import Layout from "../components/Layout";
 import ProjectPage from "../components/ProjectPage";
 import PROJECTS from "../projects";
 
-export const IMAGES = require.context("../assets/pictures", true);
-
 // console.log(IMAGES.keys()); // location in project
 // console.log(IMAGES.keys().map((value) => IMAGES(value))); // actual location when served
 // console.log(IMAGES.keys().filter((path) => path.includes("roblox")))
@@ -13,22 +11,15 @@ export const IMAGES = require.context("../assets/pictures", true);
 function App() {
   const projectRoutes: React.ReactElement[] = [];
   for (const [title, data] of Object.entries(PROJECTS)) {
-    const newProjectRoute =
+    const newProjectRoute = (
       <Route
         key={title}
-        path={`/${title.trim().replaceAll(/\s+/g, "-")}`}
+        path={`/${data.projectId}`}
         element={
-          <ProjectPage
-            title={title}
-            data={data}
-            imagePaths={
-              IMAGES.keys()
-                .filter((path) => path.includes(title.trim().replaceAll(/\s+/g, "-")))
-                .map((value) => IMAGES(value) as string)
-            }
-          />
+          <ProjectPage title={title} data={data} imagePaths={data.imagePaths} />
         }
       />
+    );
 
     projectRoutes.push(newProjectRoute);
   }
